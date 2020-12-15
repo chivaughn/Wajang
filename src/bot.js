@@ -74,6 +74,7 @@ client.on('message', async message => {
             let track = await client.player.play(message.member.voice.channel, args[0],message.member.user.tag);
             message.channel.send(`Currently playing ${track.name}! - Requested by ${track.requestedBy}`);
         } else if (COMMAND == 'stop') {
+            message.channel.send(`Stopping...`);
             let track = await client.player.stop(message.guild.id);
             message.channel.send(`STOPPED`);
         }
