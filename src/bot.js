@@ -70,6 +70,7 @@ client.on('message', async message => {
             let fortuneCookie = await getJoke();
             webhookClient.send(fortuneCookie);
         } else if (COMMAND == 'play'){
+            console.log(args[0]);
             let track = await client.player.play(message.member.voice.channel, args[0]);
             message.channel.send(`Currently playing ${track.name}! - Requested by ${track.requestedBy}`);
         } else if (COMMAND == 'stop') {
