@@ -12,6 +12,9 @@ const webhookClient = new WebhookClient(
     process.env.WEBHOOK_TOKEN
 );
 
+client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}...`))
+
+
 client.on('ready', () =>{
     console.log(`${client.user.username} is logged in.`);
 })
