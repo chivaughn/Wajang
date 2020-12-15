@@ -54,10 +54,7 @@ client.on('message', async message => {
                 message.channel.send(`${tag} You do not have permissions to ban.`)
             }
         } else if (COMMAND == 'fortune') {
-            const embed = new Discord.MessageEmbed()
-            .setTitle('Fortune Cookie')
-            .setColor('#0099ff');
-    
+            
             let getJoke = async () => {
                 let response = await axios.get('https://api.ef.gy/fortune');
                 let fortune = response.data;
@@ -65,12 +62,7 @@ client.on('message', async message => {
             }
 
             let fortuneCookie = await getJoke();
-            webhookClient.send(fortuneCookie, {
-                username: 'Fortuna',
-                avatarURL: 'https://png2.cleanpng.com/sh/61ce5c14d60aa0fdf9cac171931bb9a8/L0KzQYm3VcA0N6pniZH0aYP2gLBuTfZweqV6htc2Y3Bye7rsTfJqe5R6geZ8LXPrf7T2jPF1bV5ogNt5LXPyf7zwhb1kcJpzRadqZXHoSLK8hsI3QJQ2RqcBNUezSIS7UcUzPWQ5TKY7MUm8Qoq1kP5o/kisspng-fortune-cookie-biscuits-chocolate-chip-cookie-chin-5aeae8a5f268c1.5657083415253444219929.png',
-                embeds: [embed],
-            });
-           
+            webhookClient.send(fortuneCookie);
         }
         
     };
