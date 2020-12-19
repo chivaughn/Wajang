@@ -78,12 +78,15 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            YouTube.search(args, { limit: 1 })
-                .then(
-                    res => playQueue.push(res)
-                    )
-                .catch(console.error);
-            console.log(playQueue);
+            let getURL = async () => {
+                let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&key=${process.env.YOUTUBE_TOKEN}`);
+                let URLJson = response.data;
+                return URLJson;
+            }
+
+            let URL = await getURL();
+            console.log(URL);
+
             // const dispatcher = connection.play(ytdl(args))
             //     .on('finish', () =>{
             //         voiceChannel.leave();
