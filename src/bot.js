@@ -21,10 +21,8 @@ client.on('ready', () =>{
 client.on('message', async message => {
     if (message.author.bot) return;
     if (message.content.startsWith(PREFIX)) {
-        const [COMMAND, args] = message.content
-        .trim()
-        .substring(PREFIX.length)
-        .split(" ");
+        const args = message.content.slice(PREFIX.length).trim().split(/ +/g);
+        const COMMAND = args.shift().toLowerCase();
 
         
         if (COMMAND == 'kick') {
