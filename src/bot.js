@@ -69,7 +69,7 @@ client.on('message', async message => {
             let fortuneCookie = await getJoke();
             webhookClient.send(fortuneCookie);
         } else if (COMMAND == 'play'){
-            message.channel.send(...args);
+            message.channel.send(args);
             const voiceChannel = message.member.voice.channel;
             try {
                 var connection = await voiceChannel.join();
@@ -78,7 +78,7 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            const dispatcher = connection.play(ytdl(args[0]))
+            const dispatcher = connection.play(ytdl(args))
                 .on('finish', () =>{
                     voiceChannel.leave();
                 })
