@@ -80,7 +80,7 @@ client.on('message', async message => {
             let getURL = async () => {
                 let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
                 let videoID = response.data.items[0].id.videoId;
-                return `https://youtube.com/${videoID}`;
+                return `https://www.youtube.com/watch?v=${videoID}`;
             }
 
             let URL = await getURL();
