@@ -1,5 +1,5 @@
 require('dotenv').config();
-import YouTube from "https://deno.land/x/youtube_sr/mod.ts";
+const YouTube = require("https://deno.land/x/youtube_sr/mod.ts");
 
 const axios = require('axios');
 const { Client, WebhookClient} = require('discord.js');
