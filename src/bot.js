@@ -78,23 +78,23 @@ client.on('message', async message => {
             }
 
             let getURL = async () => {
-                let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&key=${process.env.YOUTUBE_TOKEN}`);
-                let URLJson = response.data;
-                return URLJson;
+                let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
+                let videoID = response.data.items[0].id.videoId;
+                return `https://youtube.com/${videoID}`;
             }
 
             let URL = await getURL();
             console.log(URL);
 
-            // const dispatcher = connection.play(ytdl(args))
-            //     .on('finish', () =>{
-            //         voiceChannel.leave();
-            //     })
-            //     .on('error',error=>{
-            //         console.log('error');
-            //     });
+            const dispatcher = connection.play(ytdl(URL))
+                .on('finish', () =>{
+                    voiceChannel.leave();
+                })
+                .on('error',error=>{
+                    console.log('error');
+                });
 
-            // dispatcher.setVolumeLogarithmic(5/5);
+            dispatcher.setVolumeLogarithmic(5/5);
            
         } else if (COMMAND == 'stop') {
             message.member.voice.channel.leave();
