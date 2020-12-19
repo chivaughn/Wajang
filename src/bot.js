@@ -1,10 +1,11 @@
 require('dotenv').config();
+import YouTube from "https://deno.land/x/youtube_sr/mod.ts";
 
 const axios = require('axios');
 const { Client, WebhookClient} = require('discord.js');
 const client = new Client();
 const PREFIX = "$";
-
+const playQueue =  [];
 const ytdl = require('ytdl-core');
 
 const webhookClient = new WebhookClient(
@@ -77,15 +78,21 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            const dispatcher = connection.play(ytdl(args))
-                .on('finish', () =>{
-                    voiceChannel.leave();
-                })
-                .on('error',error=>{
-                    console.log('error');
-                });
+            YouTube.search("indila last dance", { limit: 1 })
+                .then(
+                    res => playQueue.push(res)
+                    )
+                .catch(console.error);
+            console.log(playQueue);
+            // const dispatcher = connection.play(ytdl(args))
+            //     .on('finish', () =>{
+            //         voiceChannel.leave();
+            //     })
+            //     .on('error',error=>{
+            //         console.log('error');
+            //     });
 
-            dispatcher.setVolumeLogarithmic(5/5);
+            // dispatcher.setVolumeLogarithmic(5/5);
            
         } else if (COMMAND == 'stop') {
             message.member.voice.channel.leave();
