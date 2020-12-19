@@ -77,24 +77,26 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            let getURL = async () => {
-                let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
-                let videoID = response.data.items[0].id.videoId;
-                return `https://www.youtube.com/watch?v=${videoID}`;
-            }
+            console.log(args);
 
-            let URL = await getURL();
-            console.log(URL);
+            // let getURL = async () => {
+            //     let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
+            //     let videoID = response.data.items[0].id.videoId;
+            //     return `https://www.youtube.com/watch?v=${videoID}`;
+            // }
 
-            const dispatcher = connection.play(ytdl(URL))
-                .on('finish', () =>{
-                    voiceChannel.leave();
-                })
-                .on('error',error=>{
-                    console.log('error');
-                });
+            // let URL = await getURL();
+            // console.log(URL);
 
-            dispatcher.setVolumeLogarithmic(5/5);
+            // const dispatcher = connection.play(ytdl(URL))
+            //     .on('finish', () =>{
+            //         voiceChannel.leave();
+            //     })
+            //     .on('error',error=>{
+            //         console.log('error');
+            //     });
+
+            // dispatcher.setVolumeLogarithmic(5/5);
            
         } else if (COMMAND == 'stop') {
             message.member.voice.channel.leave();
