@@ -21,10 +21,10 @@ client.on('ready', () =>{
 client.on('message', async message => {
     if (message.author.bot) return;
     if (message.content.startsWith(PREFIX)) {
-        const [COMMAND, ...args] = message.content
+        const [COMMAND, args] = message.content
         .trim()
         .substring(PREFIX.length)
-        .split(/ +/g);
+        .split(" ");
 
         
         if (COMMAND == 'kick') {
@@ -77,7 +77,7 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            console.log(args[0]);
+            console.log(args);
 
             // let getURL = async () => {
             //     let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
