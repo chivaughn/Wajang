@@ -24,7 +24,7 @@ client.on('message', async message => {
         const [COMMAND, ...args] = message.content
         .trim()
         .substring(PREFIX.length)
-        .split(/ +/g);
+        .split(" ");
 
         
         if (COMMAND == 'kick') {
