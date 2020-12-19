@@ -78,7 +78,7 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            YouTube.search("indila last dance", { limit: 1 })
+            YouTube.search(args, { limit: 1 })
                 .then(
                     res => playQueue.push(res)
                     )
