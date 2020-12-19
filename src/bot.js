@@ -69,7 +69,6 @@ client.on('message', async message => {
             let fortuneCookie = await getJoke();
             webhookClient.send(fortuneCookie);
         } else if (COMMAND == 'play'){
-            message.channel.send(args);
             const voiceChannel = message.member.voice.channel;
             try {
                 var connection = await voiceChannel.join();
@@ -89,7 +88,7 @@ client.on('message', async message => {
             dispatcher.setVolumeLogarithmic(5/5);
            
         } else if (COMMAND == 'stop') {
-            
+            message.member.voice.channel.leave();
         }
         
     };
