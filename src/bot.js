@@ -75,7 +75,7 @@ client.on('message', async message => {
                 return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
             }
 
-            console.log(args);
+            console.log(args[0]);
 
             // let getURL = async () => {
             //     let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${args}&type=video&key=${process.env.YOUTUBE_TOKEN}`);
