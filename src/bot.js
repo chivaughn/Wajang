@@ -4,15 +4,14 @@ const axios = require('axios');
 const { Client, WebhookClient} = require('discord.js');
 const client = new Client();
 const PREFIX = "$";
-const { Player } = require("discord-player");
-const player = new Player(client);
-client.player = player;
+
+const ytdl = require('ytdl-core');
+
 const webhookClient = new WebhookClient(
     process.env.WEBHOOK_ID,
     process.env.WEBHOOK_TOKEN
 );
 
-client.player.on('trackStart', (message, track) => message.channel.send(`Now playing ${track.title}...`))
 
 
 client.on('ready', () =>{
@@ -70,13 +69,26 @@ client.on('message', async message => {
             let fortuneCookie = await getJoke();
             webhookClient.send(fortuneCookie);
         } else if (COMMAND == 'play'){
-            console.log(args[0]);
-            let track = await client.player.play(message.member.voice.channel, args[0]);
-            message.channel.send(`Currently playing ${track.name}! - Requested by ${track.requestedBy}`);
+            const voiceChannel = message.member.voice.channel;
+            try {
+                var connection = await voiceChannel.join();
+            } catch (error){
+                console.log(`There was an error connection to the voice channel: ${voiceChannel}`)
+                return message.channel.send(`There was an error connection to the voice channel: ${voiceChannel}`)
+            }
+
+            const dispatcher = connection.play(ytdl(args[0]))
+                .on('finish', () =>{
+                    voiceChannel.leave();
+                })
+                .on('error',error=>{
+                    console.log('error');
+                });
+
+            dispatcher.setVolumeLogarithmic(5/5);
+           
         } else if (COMMAND == 'stop') {
-            message.channel.send(`Stopping...`);
-            let track = await client.player.stop(message.guild.id);
-            message.channel.send(`STOPPED`);
+            
         }
         
     };
